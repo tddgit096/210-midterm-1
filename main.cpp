@@ -22,31 +22,31 @@ private:
     Node* tail;         //The Tail of the DoublyLinkedList
 
 public:
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
+    DoublyLinkedList() { head = nullptr; tail = nullptr; }      //DoublyLinkedList default Constructor. It assigns head and tail to nullpointer.
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
+    void insert_after(int value, int position) {            // a method which inserts a Node containing the passed value into the passed position on the doubly linked list.
+        if (position < 0) {                                 // user error check, doesn't make sense to have a position that is 0 or less.
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
+        Node* newNode = new Node(value);                    //a new node is instantiated with the Value passed as its data. We remember from earlier that its prev and next pointers are set to nullptr.
+        if (!head) {                                        //if our doubly linked list has no head, it is empty:
+            head = tail = newNode;                          //our new Node will be inserted as both the head and the tail.
+            return;                                         // we're done, lets get out of here.
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        Node* temp = head;                                  //otherwise, there is head. We will set our temporary pointer to the head...
+        for (int i = 0; i < position && temp; ++i)          //and begin moving our temp node along the linked list until we reach our target position.
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp) {                                        //we've reached the end of the linked list because temp is pointing to a nullptr:
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
+            delete newNode;                                 //delete our dynamically allocated Node,
+            return;                                         //lets get out of here. The Node was not inserted.
         }
-
-        newNode->next = temp->next;
+//                                                          //otherwise, we have a valid target at the proper position.
+        newNode->next = temp->next;                         //Our newNode's next pointer is set to match the temp.    
         newNode->prev = temp;
         if (temp->next)
             temp->next->prev = newNode;
