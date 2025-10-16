@@ -63,50 +63,50 @@ public:
         while (temp && temp->data != value)                 //iterate through the whole list, each iteration checking if temp is pointing to a valid node AND if temp data is not equal to our target value.
             temp = temp->next;                               
 //                                                          //the iteration ends here meaning 1 of 2 things happened: We reached the end or we found the target and temp is currently pointing to it
-        if (!temp) return;                                  //Target was not found because we are pointing to null. lets get out of here
+        if (!temp) return;                                  //Target was not found because we are pointing to null. lets get out of here.
 
-        if (temp->prev)                 
-            temp->prev->next = temp->next;
-        else
-            head = temp->next; 
+        if (temp->prev)                                     //if we are not the first value
+            temp->prev->next = temp->next;                  //set the node previous to our target to point its next pointer to the value after our target.
+        else                                                //we are the first value
+            head = temp->next;                              //head is set to the node after our target. our target will soon be deleted
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
-            tail = temp->prev; 
+        if (temp->next)                                     //if we are not the last value
+            temp->next->prev = temp->prev;                  //set the node after us to point its prev pointer to the value before our target.
+        else                                                //we are the last value in the list 
+            tail = temp->prev;                              //the tail is set to the node before our target. our target will soon be deleted
 
-        delete temp;
+        delete temp;                                        //our target is deleted
     }
 
-    void delete_pos(int pos) {
-        if (!head) {
+    void delete_pos(int pos) {                              //a position on the list is passed and that node is to be deleted
+        if (!head) {                                        //are we an empty list?
             cout << "List is empty." << endl;
-            return;
+            return;                                         //yes, lets get out of here.
         }
     
-        if (pos == 1) {
-            pop_front();
-            return;
+        if (pos == 1) {                                     //is our target the first position?
+            pop_front();                                    //call our pop_front() method
+            return;                                         //then get out of here
         }
     
-        Node* temp = head;
+        Node* temp = head;                                  //set our temp node to point to the head.
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
+        for (int i = 1; i < pos; i++){                      //iterate through the list until we reach our position, then exit
+            if (!temp) {                                    //we've hit out of bounds.
                 cout << "Position doesn't exist." << endl;
-                return;
+                return;                                     //lets get out of here. Node not deleted.
             }
-            else
-                temp = temp->next;
+            else                                            //we have not yet hit out of bounds
+                temp = temp->next;                          //continue iterating for as long as the for statement is valid.
         }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
+        if (!temp) {                                        //is our target position out of bounds?
+            cout << "Position doesn't exist." << endl;      //yes it is, lets get out of here. Node not deleted.
             return;
         }
     
-        if (!temp->next) {
-            pop_back();
-            return;
+        if (!temp->next) {                                  //are we at the end?
+            pop_back();                                     //call our pop_back() method
+            return;                                         //and lets get out of here, job's done.
         }
     
         Node* tempPrev = temp->prev;
