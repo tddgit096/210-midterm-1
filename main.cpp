@@ -1,23 +1,25 @@
-#include <iostream>
+//COMSC 210 | Midterm 1| Toma Dimov
+
+#include <iostream>     //importing iostream library and using the std namespace for ease of use.
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;    //cont integers
 
-class DoublyLinkedList {
+class DoublyLinkedList {    //A Class called Doubly LinkedList is being defined.
 private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
+    struct Node {   //a node struct is defined within the class. each DoublyLinkedList class will have access to these, and using multiple instances of Node, it will construct a doubly linked list.
+        int data;       //the data member, an int
+        Node* prev;     //a Node Pointer type member. This one will point to the previous Node in our list
+        Node* next;     //a Node Pointer type member. This one will point to the next Node in our list
+        Node(int val, Node* p = nullptr, Node* n = nullptr) {       //Node Parameter Constructor. Node* p & Node* n arguments default to nullpointer unless overwritten when called.
+            data = val;     //assigns the arguments to our class members, ala setters.
             prev = p;
             next = n;
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head;         //the head of the DoublyLinkedList
+    Node* tail;         //The Tail of the DoublyLinkedList
 
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
