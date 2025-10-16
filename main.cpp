@@ -109,24 +109,24 @@ public:
             return;                                         //and lets get out of here, job's done.
         }
     
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        Node* tempPrev = temp->prev;                        //a temporary node that points to the target's prev node
+        tempPrev->next = temp->next;                        //tempPrev's node's next is set to match target's next
+        temp->next->prev = tempPrev;                        //the node after target's prev pointer is set to point to our tempPrev node.
+        delete temp;                                        //delete our target from the linked list
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+    void push_back(int v) {                                 //pass an integer as a data value. program will place it at the back of the list
+        Node* newNode = new Node(v);                        //newNode pointer, dynamically allocated with V passed as data parameter in constructor.
+        if (!tail)                                          //there is no tail, empty list
+            head = tail = newNode;                          // this node becomes the first and last value of the linked list
+        else {                                              
+            tail->next = newNode;                           //last node's next points to our newNode
+            newNode->prev = tail;                           //newNode's prev will point to our tail
+            tail = newNode;                                 //newNode becomes the tail henceforth.
         }
     }
     
-    void push_front(int v) {
+    void push_front(int v) {                                //pass an integer data value. program will place it at the start of the list
         Node* newNode = new Node(v);
         if (!head)
             head = tail = newNode;
