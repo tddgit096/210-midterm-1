@@ -46,26 +46,26 @@ public:
             return;                                         //lets get out of here. The Node was not inserted.
         }
 //                                                          //otherwise, we have a valid target at the proper position.
-        newNode->next = temp->next;                         //Our newNode's next pointer is set to match the temp.    
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
-        temp->next = newNode;
+        newNode->next = temp->next;                         //Our newNode's next pointer is set to match our target position's next node. This is because we will later replace target->next with a pointer to ourselves.
+        newNode->prev = temp;                               //newNode's prev pointer is equal to our target. We are placing ourselves in the list after the target.
+        if (temp->next)                                     //Checks to see if we are not at the end of the list yet. If its the end of list: temp->next = nullptr, thus false, we skip to else statement.
+            temp->next->prev = newNode;                     //the Node after target has its prev pointer set to ourself.
+        else                                                //We are at the end of the list.
+            tail = newNode;                                 //set tail to point to us.
+        temp->next = newNode;                               //and finally, set the target's next pointer to point to us.
     }
 
-    void delete_val(int value) {
-        if (!head) return;
+    void delete_val(int value) {                            //delete a node containing a passed value.
+        if (!head) return;                                  //check if our list is empty. if it is, we leave.
 
-        Node* temp = head;
+        Node* temp = head;                                  //set a temporary pointer to head
         
-        while (temp && temp->data != value)
-            temp = temp->next;
+        while (temp && temp->data != value)                 //iterate through the whole list, each iteration checking if temp is pointing to a valid node AND if temp data is not equal to our target value.
+            temp = temp->next;                               
+//                                                          //the iteration ends here meaning 1 of 2 things happened: We reached the end or we found the target and temp is currently pointing to it
+        if (!temp) return;                                  //Target was not found because we are pointing to null. lets get out of here
 
-        if (!temp) return; 
-
-        if (temp->prev)
+        if (temp->prev)                 
             temp->prev->next = temp->next;
         else
             head = temp->next; 
