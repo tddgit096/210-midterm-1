@@ -127,79 +127,79 @@ public:
     }
     
     void push_front(int v) {                                //pass an integer data value. program will place it at the start of the list
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
+        Node* newNode = new Node(v);                        //newNode pointer, dynamically allocated with V passed as data parameter in constructor.
+        if (!head)                                          //there is no head. empty list
+            head = tail = newNode;                          //our newNode is the beginning and end.
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newNode->next = head;                           //newNode's next points to the current head node
+            head->prev = newNode;                           //head's prev node points to newNode
+            head = newNode;                                 //newNode is the head now
         }
     }
     
-    void pop_front() {
+    void pop_front() {                                      //deletes the first node in the linked list
 
-        if (!head) {
+        if (!head) {                                        //empty list?
             cout << "List is empty." << endl;
-            return;
+            return;                                         //nothing happens and we leave
         }
 
-        Node * temp = head;
+        Node * temp = head;                                 //temp pointer to head
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) {                                   //if there is a node after the head...
+            head = head->next;                              //the head is now set to the node immediately after itself
+            head->prev = nullptr;                           //that new head pointer has its prev value nulled
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else                                                //there is no node after the head...
+            head = tail = nullptr;                          //the head and tail are nulled, the list will be empty now
+        delete temp;                                        //delete the target.
     }
 
-    void pop_back() {
-        if (!tail) {
+    void pop_back() {                                       //delete's the last value in a linked list
+        if (!tail) {                                        //if there is no tail
             cout << "List is empty." << endl;
-            return;
+            return;                                         //list empty, we cout an error and leave the function
         }
-        Node * temp = tail;
+        Node * temp = tail;                                 //set our temp node pointer to the end of the list
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) {                                   //is there a node right before us?
+            tail = tail->prev;                              //yes: tail is set to that node.
+            tail->next = nullptr;                           //new tail's next node is nulled
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else                                                //nothing before us.
+            head = tail = nullptr;                          //head and tail nulled
+        delete temp;                                        //target deleted
     }
 
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+    ~DoublyLinkedList() {                                   //destructor
+        while (head) {                                      //while the head exists
+            Node* temp = head;                              //make a temp pointer to head
+            head = head->next;                              // set head to next node
+            delete temp;                                    //delete the node that temp is pointing to 
         }
     }
     void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
+        Node* current = head;                               //node set to head
+        if (!current) {                                     //empty list?
+            cout << "List is empty." << endl;               // error message, return out of the function
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) {                                   //iterate through as long as our current pointer isn't pointing to nullptr
+            cout << current->data << " ";                   //output the data and add a " "
+            current = current->next;                        //move the current pointer down the list
         }
         cout << endl;
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
+    void print_reverse() {                                  //as above but reverse
+        Node* current = tail;                               //set our current pointer to tail
+        if (!current) {                                     //empty list?
             cout << "List is empty." << endl;
-            return;
+            return;                                         //complain then exit out of the function
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+        while (current) {                                   //iterate through as long as our current pointer isn't pointing to nullptr
+            cout << current->data << " ";                   // output data
+            current = current->prev;                        //move the current pointer up the list
         }
         cout << endl;
     }
