@@ -203,11 +203,27 @@ public:
         }
         cout << endl;
     }
+    void every_other_element(){
+        int counter=1;
+        Node* current = head;
+        if(!current){
+            cout<<"List is empty."<<endl;
+            return;
+        }
+        while(current){
+            if(counter%2==0){
+                counter++;
+                continue;
+            }
+            cout << current->data << " ";
+            current = current->next;
+            counter++;
+        }
+        cout<<endl;
+    }
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-
     
     return 0;
 }
