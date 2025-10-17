@@ -3,7 +3,7 @@
 #include <iostream>     //importing iostream library and using the std namespace for ease of use.
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;    //cont integers
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;    //const integers
 
 class DoublyLinkedList {    //A Class called Doubly LinkedList is being defined.
 private:
@@ -211,9 +211,10 @@ public:
             return;
         }
         while(current){
-            if(counter%2==0){
+            if(counter%2==0){   //modulo check for "every other one".
                 counter++;
-                continue;
+                current=current->next;
+                continue;       //continue without outputting
             }
             cout << current->data << " ";
             current = current->next;
@@ -224,6 +225,12 @@ public:
 };
 
 int main() {
-    
+    DoublyLinkedList List;
+    for(int i=1;i<MAX_LS;i++)
+        List.push_back(i);
+    cout<<"Default List:\n";
+    List.print();
+    cout<<"Every Other One:\n";
+    List.every_other_element();
     return 0;
 }
